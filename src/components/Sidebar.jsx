@@ -24,7 +24,7 @@ export const Sidebar=({ sideOption, showSideItem, setShowSideItem })=>{
                 {sideOption === "skills" && (
                     <div className='fontfamily fontcolor flex md:block  md:text-left p-1'>
                         <ActiveItems label="Hardware" value="chardware" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
-                        <ActiveItems label="Programming Languages and Frameworks" value="csoftware" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>  
+                        <ActiveItems label="Programming" value="csoftware" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>  
                     </div>
                 )}
                 {sideOption === "exp" && (
