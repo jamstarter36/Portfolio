@@ -34,3 +34,13 @@ body{
     background-position: center;
     background-repeat: no-repeat;
 }
+@media (max-width: 950px) {
+    .triggerSkillSection {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: auto;
+    }
+    .triggerProjSection{
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+    }
+}

@@ -27,7 +27,7 @@ export const Navigation = ({ setSideOption, resetHome }) => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);}, []);
       const navIconClass=(name)=> 
-      `cursor-pointer p-2 rounded-full transition duration-300 hover:scale-110 hover:bg-gray-200 ${active === name ? "text-blue-500 bg-gray-200" : "text-gray-700"}`;
+      `cursor-pointer p-2 rounded-full transition duration-300 hover:scale-110 hover:bg-gray-200 ${active === name ? "text-blue-500 bg-gray-200 font-bold" : "text-gray-700"}`;
     return (
     <>
       <div className="z-5 backdrop-blur-md p-2">
@@ -56,7 +56,7 @@ export const Navigation = ({ setSideOption, resetHome }) => {
           <div className="hidden md:block">
             <button
               onClick={() => handleClick("projects")}
-              className={`fontfamily px-6 py-2 rounded-md border transition duration-300 hover:bg-black hover:text-white ${active === "projects" ? "text-blue-500 border-blue-500": "border-gray-400"}`}>
+              className={`fontfamily px-6 py-2 rounded-md border transition duration-300 hover:bg-black hover:text-white ${active === "projects" ? "text-blue-500 border-blue-500 font-bold": "border-gray-400"}`}>
               Projects
             </button>
           </div>    
