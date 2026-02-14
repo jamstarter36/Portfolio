@@ -13,12 +13,12 @@ export const Sidebar=({ sideOption, showSideItem, setShowSideItem })=>{
                     </div>   
                 )}
                 {sideOption === "info" && (
-                    <div className='fontfamily fontcolor flex md:block text-center md:text-left gap-1 md:gap-0'>
+                    <div className='fontfamily fontcolor flex md:block text-center md:text-left'>
                         <ActiveItems label="Intro" value="intro" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
-                        <ActiveItems label="Personal Details" value="pdetails" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
-                        <ActiveItems label="Interests" value="interests" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
-                        <ActiveItems label="Hobbies" value="hobbies" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
-                        <ActiveItems label="Education" value="education" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/> 
+                        <ActiveItems label="Details" value="pdetails" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
+                        <ActiveItems label="Interest" value="interests" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
+                        <ActiveItems label="Hobby" value="hobbies" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/>
+                        <ActiveItems label="Study" value="education" showSideItem={showSideItem} setShowSideItem={setShowSideItem}/> 
                     </div>
                 )}
                 {sideOption === "skills" && (
