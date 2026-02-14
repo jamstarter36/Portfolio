@@ -12,13 +12,13 @@ export const Software=()=>{
                 <div className="h-full">
                     <span className="fontfamily font-bold">Tech Stack</span>
                     <span className="p-1 text-[20px]"><TbDeviceImacCode /></span>
-                    <div className="flex gap-5">
-                    <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={Html5} /></div>
-                    <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={CssLogo} /></div>
-                    <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={JavaSlogo} /></div>
-                    <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={BootStrap} /></div>
-                    <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={Tailwind} /></div>
-                    <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={ReactLogo} /></div>
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-5">
+                        <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={Html5} /></div>
+                        <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={CssLogo} /></div>
+                        <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={JavaSlogo} /></div>
+                        <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={BootStrap} /></div>
+                        <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={Tailwind} /></div>
+                        <div className="flex flex-shrink justify-center items-center bg-gray-50 max-w-50 max-h-50 fontfamily text-white p-2 rounded-xl shadow-md transition-transform duration-300 ease-in-out hover:scale-105"><img src={ReactLogo} /></div>
                     </div> 
                     <div className="h-3"></div> 
                     <div className="border border-black/20"></div>
