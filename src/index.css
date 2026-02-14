@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+body{
+    background-color: rgb(224, 240, 255);
+    /* background: linear-gradient(to right, rgb(84, 172, 255), rgb(224, 240, 255)) */
+}
+.bgcolor{
+    background-color: rgb(255, 255, 255);
+}
+.bgfooter{
+    background: linear-gradient(to right, #111111, #888888);
+}
+.fontfamily{
+    font-family: 'Inter', sans-serif;
+}
+.fontcolor{
+    color: #8d8d8d;
+}
+.sidefont{
+    font-family: 'Roboto', sans-serif;
+}
+.sidebgcolor{
+    background-color:#ffffff;
+}
+.contentbgcolor{
+    background-color: #ffffff;
+}
+.contentbg{
+    background-image: url("./images/contentBodyBg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
