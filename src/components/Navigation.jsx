@@ -1,90 +1,110 @@
 import { useState, useEffect, useRef } from "react";
 import logoImage from "../images/JamsLogo.png";
-import { FaHome, FaInfoCircle, FaPhone } from "react-icons/fa";
-import { FaUserGear } from "react-icons/fa6";
-import { BsPersonWorkspace } from "react-icons/bs";
+
 export const Navigation = ({ setSideOption, resetHome }) => {
   const [active, setActive] = useState("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef(null);
 
   const handleClick = (name) => {
     setActive(name);
     setMenuOpen(false);
-
-    if (name === "home") {
-      resetHome();
-    } else {
-      setSideOption(name);
-    }
+    if (name === "home") resetHome();
+    else setSideOption(name);
   };
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setMenuOpen(false);
-      }
+      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
     };
     document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);}, []);
-      const navIconClass=(name)=> 
-      `cursor-pointer p-2 rounded-full transition duration-300 hover:scale-110 hover:bg-gray-200 ${active === name ? "text-blue-500 bg-gray-200 font-bold" : "text-gray-700"}`;
-    return (
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  const links = [
+    { key: "home",    label: "Home" },
+    { key: "info",    label: "About me" },
+    { key: "skills",  label: "Skills" },
+    { key: "exp",     label: "Experience" },
+    { key: "contact", label: "Contact" },
+  ];
+
+  const navLinkClass = (name) =>
+    `cursor-pointer px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200
+     ${active === name
+       ? "bg-[#1877F2] text-white"
+       : "text-gray-500 hover:text-[#050505] hover:bg-[#E7F3FF]"}`;
+
+  return (
     <>
-      <div className="z-5 backdrop-blur-md p-2">
-        <div className="relative flex items-center justify-between bg-white/70 rounded-xl px-4 py-3 shadow-md">
-          <img src={logoImage} className="w-32 md:w-40" />
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 fontfamily gap-2">
-            <div className={navIconClass("home")} onClick={() => handleClick("home")}>
-              <p className="text-sm lg:text-lg">Home</p>
-            </div>
-            <div className={navIconClass("info")} onClick={() => handleClick("info")}>
-              <p className="text-sm lg:text-lg">About me</p>
-            </div>
+      <div className={`sticky top-0 z-50 px-4 transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}>
+        <div className={`flex items-center justify-between bg-white/80 backdrop-blur-md rounded-2xl px-5 py-3 transition-shadow duration-300 ${scrolled ? "shadow-md" : "shadow-sm"} border border-gray-200`}>
 
-            <div className={navIconClass("skills")} onClick={() => handleClick("skills")}>
-              <p className="text-sm lg:text-lg">Skills</p>
-            </div>
+          {/* Logo */}
+          <img src={logoImage} className="w-28 md:w-36" alt="Logo" />
 
-            <div className={navIconClass("exp")} onClick={() => handleClick("exp")}>
-              <p className="text-sm lg:text-lg">Experience</p>
-            </div>
-
-            <div className={navIconClass("contact")} onClick={() => handleClick("contact")}>
-              <p className="text-sm lg:text-lg">Contact</p>
-            </div>
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-1">
+            {links.map(({ key, label }) => (
+              <div key={key} className={navLinkClass(key)} onClick={() => handleClick(key)}>
+                {label}
+              </div>
+            ))}
           </div>
-          <div className="hidden md:block">
-            <button
-              onClick={() => handleClick("projects")}
-              className={`fontfamily px-6 py-2 rounded-md border transition duration-300 hover:bg-black hover:text-white ${active === "projects" ? "text-blue-500 border-blue-500 font-bold": "border-gray-400"}`}>
-              Projects
-            </button>
-          </div>    
-          <div className="md:hidden z-50" onClick={() => setMenuOpen(!menuOpen)}>
-            <div className="w-6 h-5 flex flex-col justify-between cursor-pointer">
-              <span
-                className={`h-0.5 bg-black transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}/>
-              <span
-                className={`h-0.5 bg-black transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}/>
-              <span className={`h-0.5 bg-black transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""
-                }`}/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        ref={menuRef}
-        className={`md:hidden fixed top-[50px] left-0 w-full backdrop-blur-lg bg-white/80 transition-all duration-500 ease-in-out overflow-hidden z-10 ${menuOpen ? "max-h-[500px] py-6" : "max-h-0"}`}>
-        <div className="flex flex-col items-center gap-1 text-md">
-          <div onClick={() => handleClick("home")} className="hover:text-blue-500 transition hover:cursor-pointer">Home</div>
-          <div onClick={() => handleClick("info")} className="hover:text-blue-500 transition hover:cursor-pointer">About</div>
-          <div onClick={() => handleClick("skills")} className="hover:text-blue-500 transition hover:cursor-pointer">Skills</div>
-          <div onClick={() => handleClick("exp")} className="hover:text-blue-500 transition hover:cursor-pointer">Experience</div>
-          <div onClick={() => handleClick("contact")} className="hover:text-blue-500 transition hover:cursor-pointer">Contact</div>
+
+          {/* Projects CTA */}
           <button
-            onClick={() => handleClick("projects")} className="border px-6 py-2 rounded-md mt-2 hover:bg-black hover:text-white transition hover:cursor-pointer">
+            onClick={() => handleClick("projects")}
+            className={`hidden md:block px-5 py-2 rounded-full text-sm font-medium border transition-all duration-200
+              ${active === "projects"
+                ? "bg-[#1877F2] text-white border-[#1877F2]"
+                : "border-gray-300 text-gray-700 hover:border-[#1877F2] hover:text-[#050505]"}`}>
             Projects
           </button>
+
+          {/* Hamburger */}
+          <button
+            className="md:hidden flex flex-col justify-between w-5 h-4 cursor-pointer"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block h-0.5 bg-gray-800 rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block h-0.5 bg-gray-800 rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 bg-gray-800 rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+          </button>
+        </div>
+
+        {/* Mobile dropdown */}
+        <div
+          ref={menuRef}
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? "max-h-72 mt-2" : "max-h-0"}`}
+        >
+          <div className="bg-white/90 backdrop-blur-md rounded-2xl border border-gray-200 shadow-md px-4 py-3 flex flex-col gap-1">
+            {links.map(({ key, label }) => (
+              <div
+                key={key}
+                onClick={() => handleClick(key)}
+                className={`px-3 py-2 rounded-xl text-sm font-medium cursor-pointer transition-all duration-200
+                  ${active === key ? "bg-[#1877F2] text-white" : "text-gray-600 hover:bg-[#E7F3FF] hover:text-[#050505]"}`}
+              >
+                {label}
+              </div>
+            ))}
+            <button
+              onClick={() => handleClick("projects")}
+              className={`mt-1 px-3 py-2 rounded-xl text-sm font-medium text-left border transition-all duration-200
+                ${active === "projects" ? "bg-[#1877F2] text-white border-[#1877F2]" : "border-gray-200 text-gray-600 hover:border-[#1877F2] hover:text-[#050505]"}`}
+            >
+              Projects
+            </button>
+          </div>
         </div>
       </div>
     </>

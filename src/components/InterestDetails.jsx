@@ -1,6 +1,4 @@
-import { IoMusicalNotesOutline } from "react-icons/io5";
-import { IoTvSharp } from "react-icons/io5";
-import { IoGameController } from "react-icons/io5";
+import { IoMusicalNotesOutline, IoTvSharp, IoGameController } from "react-icons/io5";
 import { FaFilm } from "react-icons/fa";
 
 import Witcher from '../images/witcher.png';
@@ -14,79 +12,85 @@ import AcOdy from '../images/acodyssey.png';
 import WitcherWh from '../images/witcherwh.png';
 import WutheringW from '../images/wutheringW.png';
 
+const sections = [
+  {
+    icon: <IoTvSharp />,
+    label: "TV Shows",
+    items: [
+      { title: "Witcher",          img: Witcher },
+      { title: "Rings of Power",   img: RingOp },
+      { title: "Game of Thrones",  img: GameOt },
+    ],
+  },
+  {
+    icon: <FaFilm />,
+    label: "Movies",
+    items: [
+      { title: "Lord of the Rings", img: LotR },
+      { title: "Pearl Harbor",      img: PearlH },
+      { title: "Titanic",           img: Titanic },
+    ],
+  },
+  {
+    icon: <IoGameController />,
+    label: "Video Games",
+    items: [
+      { title: "FF7 Remake",             img: Ffrmk },
+      { title: "AC: Odyssey",            img: AcOdy },
+      { title: "Witcher 3: Wild Hunt",   img: WitcherWh },
+      { title: "Wuthering Waves",        img: WutheringW },
+    ],
+  },
+];
+
+const MediaCard = ({ title, img }) => (
+  <div className="flex-shrink-0 w-36 rounded-xl overflow-hidden shadow-sm group cursor-pointer">
+    <div className="relative overflow-hidden" style={{ aspectRatio: "2/3" }}>
+      <img
+        src={img}
+        alt={title}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      {/* Title overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+        <p className="text-white text-xs font-medium leading-tight">{title}</p>
+      </div>
+    </div>
+  </div>
+);
+
 export const InterestDetails = () => {
-    return (
-        <>
-            {/* Music */}
-            <div className="grid grid-row p-2">
-                <div>
-                    <div className="flex">
-                        <span className="fontfamily">
-                            <p className="font-bold flex items-center gap-1">Music <IoMusicalNotesOutline /></p>
-                            90's Love and Rock Music
-                        </span>
-                    </div>
-                    <div className="border border-gray-300 mt-2"></div>
-                </div>
+  return (
+    <div className="flex flex-col gap-4 p-2">
 
-                {/* TV Shows */}
-                <span className="fontfamily pt-1">
-                    <p className="font-bold flex items-center gap-1">TV shows <IoTvSharp /></p>
-                </span>
-                <div className="flex gap-4 overflow-x-auto pb-3 pt-3 scrollbar-hide">
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Witcher<img src={Witcher} className="w-full h-56 object-cover rounded-lg" alt="Witcher"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Rings of Power<img src={RingOp} className="w-full h-56 object-cover rounded-lg" alt="Rings of Power"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Game of Thrones<img src={GameOt} className="w-full h-56 object-cover rounded-lg" alt="Game of Thrones"/>
-                    </div>
-                </div>
-                <div className="border border-gray-300"></div>
-            </div>
+      {/* Music */}
+      <div className="flex items-start gap-3 pb-4 border-b border-[#1877F2]/30">
+        <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#E7F3FF] text-gray-500 text-sm mt-0.5">
+          <IoMusicalNotesOutline />
+        </div>
+        <div>
+          <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">Music</p>
+          <p className="text-sm text-gray-700 mt-0.5">90's Love and Rock Music</p>
+        </div>
+      </div>
 
-            {/* Movies */}
-            <div className="grid grid-row p-2">
-                <span className="fontfamily pt-1">
-                    <p className="font-bold flex items-center gap-1">Movies <FaFilm /></p>
-                </span>
-                <div className="flex gap-4 overflow-x-auto pb-3 pt-3 scrollbar-hide">
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        The Lord of the Rings<img src={LotR} className="w-full h-56 object-cover rounded-lg" alt="The Lord of the Rings"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Pearl Harbor<img src={PearlH} className="w-full h-56 object-cover rounded-lg" alt="Pearl Harbor"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Titanic<img src={Titanic} className="w-full h-56 object-cover rounded-lg" alt="Titanic"/>
-                    </div>
-                </div>
-                <div className="border border-gray-300"></div>
+      {/* TV / Movies / Games */}
+      {sections.map(({ icon, label, items }) => (
+        <div key={label} className="pb-4 border-b border-[#1877F2]/30 last:border-0 last:pb-0">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#E7F3FF] text-gray-500 text-sm">
+              {icon}
             </div>
+            <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest">{label}</p>
+          </div>
 
-            {/* Video Games */}
-            <div className="grid grid-row p-2">
-                <span className="fontfamily pt-1">
-                    <p className="font-bold flex items-center gap-1">Video Games <IoGameController /></p>
-                </span>
-                <div className="flex gap-4 overflow-x-auto pb-3 pt-3 scrollbar-hide">
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Final Fantasy 7 Remake<img src={Ffrmk} className="w-full h-56 object-cover rounded-lg" alt="Final Fantasy 7 Remake"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Assassin's Creed: Odyssey<img src={AcOdy} className="w-full h-56 object-cover rounded-lg" alt="Assassin's Creed: Odyssey"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Witcher 3: Wild Hunt<img src={WitcherWh} className="w-full h-56 object-cover rounded-lg" alt="Witcher 3: Wild Hunt"/>
-                    </div>
-                    <div className="bg-black min-w-40 text-white p-1 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 flex-shrink-0">
-                        Wuthering Waves<img src={WutheringW} className="w-full h-56 object-cover rounded-lg" alt="Wuthering Waves"/>
-                    </div>
-                </div>
-                <div className="border border-gray-300"></div>
-            </div>
-        </>
-    );
+          <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+            {items.map((item) => (
+              <MediaCard key={item.title} {...item} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };

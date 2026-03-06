@@ -1,123 +1,91 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
 import chillRide from '../images/chillRide.png';
 import foodieFizz from '../images/foodieFizz.png';
 import gearHead from '../images/gearhead.png';
 import noToHeights from '../images/noToHeights.png';
 import deep from '../images/deep.png';
 import gamingSetup from '../images/gamingSetup.png';
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+
+const slides = [
+  { img: gearHead,    title: "Gearhead",                     text: "Cars call to me; I crave their story, every wheel, every light, every glory.",              color: "#DC2626", bg: "#FEE2E2" },
+  { img: chillRide,   title: "After-hours chill ride",        text: "Gliding through the city or past its edge, windows open, the night and breeze entwined.",   color: "#7C3AED", bg: "#EDE9FE" },
+  { img: foodieFizz,  title: "Foodie Frizz",                  text: "Cheese stretches, soda fizzes — pure happiness in every bite and sip.",                     color: "#EA580C", bg: "#FFEDD5" },
+  { img: gamingSetup, title: "Games · Movies · Anime · Code", text: "I wander realms of pixels and plot, from games to anime, films, and lines of code that never stop.", color: "#1D4ED8", bg: "#DBEAFE" },
+  { img: noToHeights, title: "No thanks, height",             text: "I dream of flying, yet my legs freeze, the sky too wide, my heart too small.",              color: "#DB2777", bg: "#FCE7F3" },
+  { img: deep,        title: "That deep? Nope!",              text: "I long to dive, yet tremble still, the deep's cold fingers curling around my will.",         color: "#1E3A5F", bg: "#DBEAFE" },
+];
 
 export const IntroCarousel = () => {
-  const images = [gearHead, chillRide, foodieFizz, gamingSetup, noToHeights, deep];
-  const extendedImages = [...images, images[0]];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [enableTransition, setEnableTransition] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const carouselRef = useRef(null);
-  const [slideWidth, setSlideWidth] = useState(0);
-  useEffect(() => {
-    const updateWidth = () => {
-      if (carouselRef.current) setSlideWidth(carouselRef.current.offsetWidth);
-    };
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, []);
-
-  const nextSlide = () => setCurrentIndex(prev => prev + 1);
-  const prevSlide = () => {
-    if (currentIndex === 0) {
-      setEnableTransition(false);
-      setCurrentIndex(images.length - 1);
-      requestAnimationFrame(() => requestAnimationFrame(() => setEnableTransition(true)));
-    } else {
-      setCurrentIndex(prev => prev - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (currentIndex === images.length) {
-      setTimeout(() => {
-        setEnableTransition(false);
-        setCurrentIndex(0);
-        requestAnimationFrame(() => requestAnimationFrame(() => setEnableTransition(true)));
-      }, 1000);
-    }
-  }, [currentIndex, images.length]);
-
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(nextSlide, 3000);
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
-  const captions = [
-    { title: "Gearhead", text: "Cars call to me; I crave their story, every wheel, every light, every glory." },
-    { title: "After-hours chill ride", text: "Gliding through the city or past its edge, windows open, the night and breeze entwined." },
-    { title: "Foodie Frizz", text: "Cheese stretches, soda fizzes, slice in one hand, fizz in the other, pure happiness in every bite and sip." },
-    { title: "Games Movies Anime Code", text: "I wander realms of pixels and plot, from games to anime, films, and lines of code that never stop." },
-    { title: "No thanks height", text: "I dream of flying, yet my legs freeze, the sky too wide, my heart too small." },
-    { title: "That deep? Nope!", text: "I long to dive, yet tremble still, the deep's cold fingers curling around my will." },
-  ];
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="flex flex-col lg:flex-row p-2 gap-4">
-      <div className="grid gap-1 fontfamily text-gray-600 italic items-center p-4 md:basis-1/3 text-sm">
-        {captions.map((cap, idx) => (
-          <span
+    <div className="flex flex-col lg:flex-row gap-4 p-2 w-full">
+
+      {/* Caption list */}
+      <div className="flex flex-col gap-1 lg:basis-1/3 justify-start">
+        {slides.map((slide, idx) => (
+          <div
             key={idx}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            className={`p-1 transition-transform duration-500 ${
-              currentIndex === idx ? "scale-105 rounded-md bg-gray-100 shadow-md" : "scale-100"
+            onClick={() => swiperRef.current?.slideToLoop(idx)}
+            className={`px-3 py-2 rounded-xl cursor-pointer transition-all duration-300 ${
+              activeIndex === idx ? "scale-105 shadow-sm" : "scale-100 hover:bg-gray-50"
             }`}
+            style={activeIndex === idx ? { backgroundColor: slide.bg } : {}}
           >
-            <p className="font-bold">{cap.title}:</p>
-            {cap.text}
-          </span>
+            <p className="text-xs font-semibold transition-colors duration-300"
+              style={{ color: activeIndex === idx ? slide.color : "#9ca3af" }}>
+              {slide.title}
+            </p>
+            <p className="text-xs italic leading-relaxed transition-colors duration-300"
+              style={{ color: activeIndex === idx ? "#6b7280" : "#d1d5db" }}>
+              {slide.text}
+            </p>
+          </div>
         ))}
       </div>
-      <div
-        ref={carouselRef}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        className="relative md:basis-2/3 flex items-center gap-2">
-        <button
-          onClick={prevSlide}
-          className="absolute left-1 md:left-2 z-10 text-2xl md:text-3xl text-gray-800 hover:text-blue-600">
-          <FaArrowAltCircleLeft />
-        </button>
-        <div className="overflow-hidden w-full rounded-lg shadow-md bg-black" style={{ aspectRatio: "4/3" }}>
-          <div
-            className="flex h-full transition-transform duration-1000 ease-in-out"
-            style={{
-              transform: `translateX(-${currentIndex * slideWidth}px)`,
-              transition: enableTransition ? "transform 1s ease-in-out" : "none",
-            }}>
-            {extendedImages.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                alt={`slide-${idx}`}
-                className="flex-shrink-0 w-full h-full object-cover rounded-lg"
-              />
-            ))}
-          </div>
-        </div>
 
-        {/* Right Arrow */}
-        <button
-          onClick={nextSlide}
-          className="absolute right-1 md:right-2 z-10 text-2xl md:text-3xl text-gray-800 hover:text-blue-600"
+      {/* Swiper */}
+      <div className="lg:basis-2/3 rounded-2xl overflow-hidden shadow-sm bg-black" style={{ aspectRatio: "4/3" }}>
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          loop={true}
+          autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          pagination={{ clickable: true, bulletClass: "swiper-bullet", bulletActiveClass: "swiper-bullet-active" }}
+          className="w-full h-full"
         >
-          <FaArrowAltCircleRight />
-        </button>
+          {slides.map((slide, idx) => (
+            <SwiperSlide key={idx}>
+              <img src={slide.img} alt={slide.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
+
+      <style>{`
+        .swiper-bullet {
+          display: inline-block;
+          width: 6px; height: 6px;
+          border-radius: 9999px;
+          background: rgba(255,255,255,0.5);
+          margin: 0 3px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .swiper-bullet-active {
+          width: 16px;
+          background: white;
+        }
+        .swiper-pagination { bottom: 10px !important; }
+      `}</style>
     </div>
   );
 };
-
-
-

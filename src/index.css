@@ -3,9 +3,13 @@
 html {
   scroll-behavior: smooth;
 }
-body{
-    background-color: rgb(224, 240, 255);
-    /* background: linear-gradient(to right, rgb(84, 172, 255), rgb(224, 240, 255)) */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: #F0F2F5;
+  color: #050505;
+  -webkit-font-smoothing: antialiased;
 }
 .bgcolor{
     background-color: rgb(255, 255, 255);
@@ -34,6 +38,11 @@ body{
     background-position: center;
     background-repeat: no-repeat;
 }
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+
 @media (max-width: 950px) {
     .triggerSkillSection {
         grid-template-columns: repeat(3, 1fr);
