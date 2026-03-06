@@ -71,13 +71,15 @@ export const Navigation = ({ setSideOption, resetHome }) => {
 
           {/* Hamburger */}
           <button
-            className="md:hidden flex flex-col justify-between w-5 h-4 cursor-pointer"
+            className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl bg-[#F0F2F5] hover:bg-[#E7F3FF] cursor-pointer transition-all duration-200"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
           >
-            <span className={`block h-0.5 bg-gray-800 rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block h-0.5 bg-gray-800 rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 bg-gray-800 rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <div className="flex flex-col justify-between w-5 h-3.5">
+              <span className={`block h-0.5 w-full bg-[#050505] rounded transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[6px]" : ""}`} />
+              <span className={`block h-0.5 w-full bg-[#050505] rounded transition-all duration-300 ${menuOpen ? "opacity-0 scale-x-0" : ""}`} />
+              <span className={`block h-0.5 w-full bg-[#050505] rounded transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[6px]" : ""}`} />
+            </div>
           </button>
         </div>
 
