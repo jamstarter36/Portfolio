@@ -153,7 +153,8 @@ export const Projects = () => {
           onClick={closeModal}
         >
           <div
-            className="bg-white rounded-2xl overflow-hidden shadow-2xl w-full max-w-3xl"
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl"
+            style={{ maxWidth: "768px", width: "100%" }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal header */}
@@ -172,24 +173,26 @@ export const Projects = () => {
 
             {/* Video tabs — only show if more than 1 video */}
             {activeProject.videos.length > 1 && (
-              <div className="flex gap-2 px-5 pt-3">
-                {activeProject.videos.map((video, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveVideo(idx)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
-                      activeVideo === idx
-                        ? "bg-[#1877F2] text-white border-[#1877F2]"
-                        : "bg-white text-gray-400 border-gray-200 hover:border-[#1877F2] hover:text-[#1877F2]"
-                    }`}
-                  >
-                    {video.label}
-                  </button>
-                ))}
+              <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }} className="px-5 pt-3 pb-1">
+                <div style={{ display: "flex", gap: "8px", width: "max-content" }}>
+                  {activeProject.videos.map((video, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveVideo(idx)}
+                      style={{ flexShrink: 0 }}
+                      className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
+                        activeVideo === idx
+                          ? "bg-[#1877F2] text-white border-[#1877F2]"
+                          : "bg-white text-gray-400 border-gray-200 hover:border-[#1877F2] hover:text-[#1877F2]"
+                      }`}
+                    >
+                      {video.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Video player */}
             <div className="p-5">
               <div className="rounded-xl overflow-hidden bg-black" style={{ aspectRatio: "16/9" }}>
                 <video
@@ -207,3 +210,42 @@ export const Projects = () => {
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import HrisVideo2 from '../recordings/2.mp4';
+// import HrisVideo3 from '../recordings/3.mp4';
+// import HrisVideo4 from '../recordings/4.mp4';
+// import HrisVideo5 from '../recordings/5.mp4';
+// import HrisVideo6 from '../recordings/1m.mp4';
+// import HrisVideo7 from '../recordings/2m.mp4';
+// import HrisVideo8 from '../recordings/3m.mp4';
+// import HrisVideo9 from '../recordings/4m.mp4';
+// import HrisVideo10 from '../recordings/5m.mp4';
+// import HrisVideo11 from '../recordings/1a.mp4';
+
+
+
+
+
+
+// { label: "Demo 2", src: HrisVideo2 },
+//       { label: "Demo 3", src: HrisVideo3 },
+//       { label: "Demo 4", src: HrisVideo4 },
+//       { label: "Demo 5", src: HrisVideo5 },
+//       { label: "Demo 6", src: HrisVideo6 },
+//       { label: "Demo 7", src: HrisVideo7 },
+//       { label: "Demo 8", src: HrisVideo8 },
+//       { label: "Demo 9", src: HrisVideo9 },
+//       { label: "Demo 10", src: HrisVideo10 },
+//       { label: "Demo 11", src: HrisVideo11 },
