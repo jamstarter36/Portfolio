@@ -4,6 +4,7 @@ import FirstProject from '../images/projectImages/firstproject.png';
 import EmployeeMgt from '../images/projectImages/employeemgt.png';
 import DoordashReplica from '../images/projectImages/doordashreplica.png';
 import JamstarterPC from '../images/projectImages/jamstarterpc.png';
+import Namidori from '../images/projectImages/namidori.png'
 
 import HrisVideo1 from '../recordings/1.mp4';
 import HrisVideo2 from '../recordings/2.mp4';
@@ -61,6 +62,12 @@ const projects = [
       { label: "Demo 10", src: HrisVideo10 },
       { label: "Demo 11", src: HrisVideo11 },
     ],
+  },
+  {
+    img: Namidori,
+    title: "Namidor Matcha Cafe - POS System",
+    stack: ["React", "Tailwind", "JavaScript", "Node.js"],
+    href: "https://namidori.vercel.app",
   },
 ];
 
